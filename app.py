@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Διάβασε το script
-with open("my_script.py", "r") as f:
+with open("codeGenerator.py", "r") as f:
     code = f.read()
 
 # Προβολή του κώδικα
