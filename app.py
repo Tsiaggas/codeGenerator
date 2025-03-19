@@ -1,12 +1,16 @@
 import streamlit as st
+import subprocess
 
-# Διάβασε το script
+st.title("Run My Python Script")
+
+# Προβολή του κώδικα
 with open("codeGenerator.py", "r") as f:
     code = f.read()
 
-# Προβολή του κώδικα
 st.code(code, language="python")
 
-# Κουμπί για να τρέξει το script
-if st.button("Run Script"):
-    exec(code)  # Εκτελεί τον κώδικα του αρχείου
+# Κουμπί για εκτέλεση του script
+if st.button("Run"):
+    result = subprocess.run(["python", "codeGenerator.py"], capture_output=True, text=True)
+    st.write("### Output:")
+    st.code(result.stdout)
