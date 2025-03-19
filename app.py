@@ -1,7 +1,12 @@
 import streamlit as st
 
-with open("codeGenerator.py", "r") as f:
+# Διάβασε το script
+with open("my_script.py", "r") as f:
     code = f.read()
 
-st.title("My Python Script")
+# Προβολή του κώδικα
 st.code(code, language="python")
+
+# Κουμπί για να τρέξει το script
+if st.button("Run Script"):
+    exec(code)  # Εκτελεί τον κώδικα του αρχείου
