@@ -1,29 +1,27 @@
 import random
+import streamlit as st
 
-letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+def generate_password(nr_letters, nr_symbols, nr_numbers):
+    letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    numbers = '0123456789'
+    symbols = '!#$%&()*+'
+    
+    password_chars = (
+        [random.choice(letters) for _ in range(nr_letters)] +
+        [random.choice(symbols) for _ in range(nr_symbols)] +
+        [random.choice(numbers) for _ in range(nr_numbers)]
+    )
+    
+    random.shuffle(password_chars)
+    return ''.join(password_chars)
 
-print("Welcome to the PyPassword Generator!")
-nr_letters = int(input("How many letters would you like in your password?\n"))
-nr_symbols = int(input(f"How many symbols would you like?\n"))
-nr_numbers = int(input(f"How many numbers would you like?\n"))
+st.title("PyPassword Generator")
 
+nr_letters = st.number_input("How many letters would you like in your password?", min_value=0, value=8, step=1)
+nr_symbols = st.number_input("How many symbols would you like?", min_value=0, value=2, step=1)
+nr_numbers = st.number_input("How many numbers would you like?", min_value=0, value=2, step=1)
 
-shuffled_password =[""]
-
-for char in range(0, nr_letters):
-    shuffled_password += random.choice(letters)
-for symbol in range(0, nr_symbols):
-    shuffled_password += random.choice( symbols)
-for number in range(0, nr_numbers):
-    shuffled_password += random.choice(numbers)
-
-random.shuffle(shuffled_password)
-
-password = ''.join(shuffled_password)
-
-print(password)
-
-
+if st.button("Generate Password"):
+    password = generate_password(nr_letters, nr_symbols, nr_numbers)
+    st.text_input("Your Generated Password:", password, type="default")
 
