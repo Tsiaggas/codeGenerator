@@ -1,8 +1,7 @@
 import streamlit as st
 
-st.title("Code Generator!")
+with open("codeGenerator.py", "r") as f:
+    code = f.read()
 
-st.write("Hello, this is a demo !")
-
-if st.button("Click Me!"):
-    st.write("Button Clicked! 🎉")
+st.title("My Python Script")
+st.code(code, language="python")
